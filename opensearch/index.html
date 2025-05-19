@@ -75,7 +75,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Rubisco Database Link Generator</h1>
+        <h1>OSSID Generator</h1>
         <div class="input-group">
             <input type="text" id="sheetId" placeholder="Enter Sheet ID">
             <input type="text" id="sheetName" placeholder="Enter Sheet Name" value="Sheet1">
@@ -98,7 +98,7 @@
                 return;
             }
             
-            const searchPageUrl = `https://rubisco.pages.dev/database/?siteName=${siteName}&sheetId=${sheetId}&sheetName=${sheetName}&apiKey=AIzaSyDsq6nLS2capHhTp5nnj-dxlWGGObke8yI`;
+            const searchPageUrl = `https://server360sites.pages.dev/opensearch/search.html?siteName=${siteName}&sheetId=${sheetId}&sheetName=${sheetName}&apiKey=AIzaSyDsq6nLS2capHhTp5nnj-dxlWGGObke8yI`;
             
             document.getElementById('shareableLink').innerHTML = `<a href="${searchPageUrl}" target="_blank">${searchPageUrl}</a>`;
         }
