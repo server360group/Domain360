@@ -114,41 +114,60 @@
                     return;
                 }
             
-                // Parse query
+                const rowText = row => row.join(' ').toLowerCase();
+            
+                // Extract quoted phrases
                 const phraseRegex = /"([^"]+)"/g;
                 let match;
                 const phrases = [];
-                const used = [];
-            
-                // Extract phrases in quotes
                 while ((match = phraseRegex.exec(query)) !== null) {
                     phrases.push(match[1]);
-                    used.push(match[0]);
                 }
             
                 // Remove phrases from query
-                let remaining = query;
-                used.forEach(str => {
-                    remaining = remaining.replace(str, '');
+                let strippedQuery = query.replace(/"[^"]+"/g, '');
+            
+                // Tokenize remaining query by spaces, handling operators
+                const tokens = strippedQuery.split(/\s+/).filter(Boolean);
+            
+                // Parse query into terms with AND/OR/NOT flags
+                const includeAll = [];    // AND terms
+                const includeAny = [];    // OR terms
+                const exclude = [];       // NOT terms
+            
+                tokens.forEach(token => {
+                    if (token.startsWith('-')) {
+                        exclude.push(token.slice(1));
+                    } else if (token.includes('|')) {
+                        token.split('|').forEach(part => {
+                            if (part) includeAny.push(part);
+                        });
+                    } else {
+                        includeAll.push(token.replace(/^\+/, '')); // strip +
+                    }
                 });
             
-                // Extract individual terms (remove + signs and split)
-                const terms = remaining
-                    .replace(/\+/g, ' ')
-                    .split(/\s+/)
-                    .filter(Boolean);
-            
                 const filteredResults = data.filter(row => {
-                    const rowText = row.join(' ').toLowerCase();
+                    const text = rowText(row);
             
-                    // Match all phrases and all terms
-                    return phrases.every(p => rowText.includes(p)) &&
-                           terms.every(t => rowText.includes(t));
+                    // All phrases must match
+                    if (!phrases.every(p => text.includes(p))) return false;
+            
+                    // All AND terms must match
+                    if (!includeAll.every(t => text.includes(t))) return false;
+            
+                    // At least one OR term must match (if any exist)
+                    if (includeAny.length && !includeAny.some(t => text.includes(t))) return false;
+            
+                    // No excluded terms must appear
+                    if (exclude.some(t => text.includes(t))) return false;
+            
+                    return true;
                 });
             
                 renderTable(headers, filteredResults);
             }
-          
+
             fetchData();
         }
     </script>
