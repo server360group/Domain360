@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OSSID Generator | Evermore OpenSearch</title>
+    <link rel="stylesheet" href="./assets/fonts/library.css">
+    <link rel="shortcut icon" href="./assets/images/icon.png" type="image/x-icon">
+    <style>
+        h1 {
+            font-family: 'Free Clarendon';
+        }
+        body {
+            font-family: 'Arina', Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        input {
+            font-family: 'Arina', Arial, sans-serif;
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #dfe1e5;
+            border-radius: 24px;
+            outline: none;
+            text-indent: 10px;
+        }
+        button {
+            font-family: 'Arina', Arial, sans-serif;
+            font-weight: 700;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            background-color: #4285F4;
+            color: white;
+            border-radius: 24px;
+            cursor: pointer;
+        }
+        #results {
+            text-align: left;
+            margin-top: 20px;
+        }
+        .result {
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+        .result-title {
+            font-size: 18px;
+            color: #1a0dab;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        .result-title:hover {
+            text-decoration: underline;
+        }
+        .result-url {
+            color: #006621;
+            font-size: 14px;
+        }
+        .result-desc {
+            color: #545454;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Rubisco Database Link Generator</h1>
+        <div class="input-group">
+            <input type="text" id="sheetId" placeholder="Enter Sheet ID">
+            <input type="text" id="sheetName" placeholder="Enter Sheet Name" value="Sheet1">
+            <input type="text" id="siteName" placeholder="Enter Site Name" value="My Database Search">
+            <!-- <input type="text" id="apiKey" placeholder="Enter API Key" value="AIzaSyDsq6nLS2capHhTp5nnj-dxlWGGObke8yI"> -->
+            <button onclick="generateLink()">Get OSSID</button>
+        </div>
+        <p id="shareableLink"></p>
+        <div id="results"></div>
+    </div>
+
+    <script>
+        function generateLink() {
+            const sheetId = document.getElementById('sheetId').value.trim();
+            const sheetName = document.getElementById('sheetName').value.trim();
+            const siteName = document.getElementById('siteName').value.trim();
+
+            if (!sheetId || !sheetName) {
+                alert('Please enter the Sheet ID, Sheet Name, and API Key.');
+                return;
+            }
+            
+            const searchPageUrl = `https://rubisco.pages.dev/database/?siteName=${siteName}&sheetId=${sheetId}&sheetName=${sheetName}&apiKey=AIzaSyDsq6nLS2capHhTp5nnj-dxlWGGObke8yI`;
+            
+            document.getElementById('shareableLink').innerHTML = `<a href="${searchPageUrl}" target="_blank">${searchPageUrl}</a>`;
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('sheetId') && urlParams.get('apiKey')) {
+                document.getElementById('searchBox').style.display = 'block';
+                search();
+            }
+        });
+    </script>
+</body>
+</html>
