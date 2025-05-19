@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Advanced Search | Evermore OpenSearch</title>
+  <link rel="stylesheet" href="./assets/fonts/library.css">
+  <link rel="shortcut icon" href="./assets/images/icon.png" type="image/x-icon">
+  <style>
+    body {
+      font-family: 'Geomet Sans', 'Arina', Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+    h1 {
+      font-family: 'Free Clarendon';
+    }
+    .container {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    input {
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    button {
+      padding: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      background-color: #4285F4;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .result {
+      border-bottom: 1px solid #ccc;
+      padding: 10px;
+      text-align: left;
+    }
+    .result-title {
+      font-size: 18px;
+      font-weight: bold;
+      color: #1a0dab;
+      text-decoration: none;
+    }
+    .result-url {
+      color: #006621;
+      font-size: 14px;
+    }
+    .result-desc {
+      font-size: 14px;
+      color: #545454;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Advanced Google Sheet Search</h1>
+    <div class="input-group">
+      <input type="text" id="sheetId" placeholder="Enter Sheet ID">
+      <input type="text" id="sheetName" placeholder="Enter Sheet Name" value="Sheet1">
+      <input type="text" id="apiKey" placeholder="Enter Google API Key">
+      <button onclick="loadData()">Load Data</button>
+    </div>
+
+    <div class="input-group">
+      <input type="text" id="searchInput" placeholder='Search: e.g. "apple inc", tech + innovation, /regex/i, apple | orange, -fruit'>
+      <button onclick="advancedSearch()">Search</button>
+    </div>
+
+    <div id="results"></div>
+  </div>
+
+  <script>
+    let data = [];
+
+    async function loadData() {
+      const sheetId = document.getElementById("sheetId").value.trim();
+      const sheetName = document.getElementById("sheetName").value.trim();
+      const apiKey = document.getElementById("apiKey").value.trim();
+
+      if (!sheetId || !sheetName || !apiKey) {
+        alert("Please fill in all fields.");
+        return;
+      }
+
+      const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${sheetName}?key=${apiKey}`;
+
+      try {
+        const res = await fetch(url);
+        const json = await res.json();
+
+        if (!json.values || json.values.length < 2) {
+          alert("No data found.");
+          return;
+        }
+
+        const headers = json.values[0].map(h => h.toLowerCase());
+        data = json.values.slice(1).map(row => {
+          let obj = {};
+          headers.forEach((key, i) => {
+            obj[key] = row[i] || "";
+          });
+          return obj;
+        });
+
+        alert("Data loaded. You can now search.");
+      } catch (err) {
+        alert("Failed to load data.");
+        console.error(err);
+      }
+    }
+
+    function parseQuery(query) {
+      const regexPattern = /^\/(.+)\/([gimsuy]*)$/;
+      const regexMatch = query.match(regexPattern);
+      if (regexMatch) {
+        try {
+          return new RegExp(regexMatch[1], regexMatch[2]);
+        } catch {
+          alert("Invalid regular expression.");
+          return null;
+        }
+      }
+
+      // Tokens
+      const tokens = query.match(/"[^"]+"|\S+/g) || [];
+
+      const terms = [];
+      const orTerms = [];
+      const excludeTerms = [];
+
+      tokens.forEach(token => {
+        if (token.startsWith('-')) {
+          excludeTerms.push(token.slice(1).toLowerCase());
+        } else if (token.includes('|')) {
+          orTerms.push(...token.split('|').map(t => t.toLowerCase()));
+        } else if (token.startsWith('"') && token.endsWith('"')) {
+          terms.push(token.slice(1, -1).toLowerCase());
+        } else if (token.includes('+')) {
+          terms.push(...token.split('+').map(t => t.toLowerCase()));
+        } else {
+          terms.push(token.toLowerCase());
+        }
+      });
+
+      return { terms, orTerms, excludeTerms };
+    }
+
+    function matchItem(item, matcher) {
+      const combined = `${item.title} ${item.description}`.toLowerCase();
+
+      if (matcher instanceof RegExp) return matcher.test(combined);
+
+      const { terms, orTerms, excludeTerms } = matcher;
+
+      // Exclude first
+      if (excludeTerms.some(t => combined.includes(t))) return false;
+
+      // Must match all AND terms
+      if (terms.length && !terms.every(t => combined.includes(t))) return false;
+
+      // OR terms: optional but at least one must match if present
+      if (orTerms.length && !orTerms.some(t => combined.includes(t))) return false;
+
+      return true;
+    }
+
+    function advancedSearch() {
+      const input = document.getElementById("searchInput").value.trim();
+      const resultsContainer = document.getElementById("results");
+      resultsContainer.innerHTML = "";
+
+      if (!data.length) {
+        alert("No data loaded. Please load the sheet first.");
+        return;
+      }
+
+      const matcher = parseQuery(input);
+      if (!matcher) return;
+
+      const matches = data.filter(item => matchItem(item, matcher));
+
+      if (matches.length === 0) {
+        resultsContainer.innerHTML = "<p>No results found.</p>";
+        return;
+      }
+
+      matches.forEach(item => {
+        const div = document.createElement("div");
+        div.className = "result";
+        div.innerHTML = `
+          <a class="result-title" href="${item.url}" target="_blank">${item.title}</a>
+          <div class="result-url">${item.url}</div>
+          <div class="result-desc">${item.description}</div>
+        `;
+        resultsContainer.appendChild(div);
+      });
+    }
+  </script>
+</body>
+</html>
