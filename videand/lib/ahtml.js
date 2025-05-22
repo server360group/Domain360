@@ -18633,7 +18633,7 @@ const $global = function () {
   /**
    * @internal
    */
-  const base = parseColorHexRGB('#0078D4');
+  const base = parseColorHexRGB('#37abc8');
   const accentBase = SwatchRGB.create(base.r, base.g, base.b);
   
   function foregroundOnAccentSet(restFill, hoverFill, activeFill, focusFill, contrastTarget) {

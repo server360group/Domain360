@@ -3,16 +3,16 @@
     "name": "Videand",
     "icons": [
         {
-            "src": "https://server360sites.pages.dev/videand/assets/icons/icon-inverted.svg",
+            "src": "/assets/icons/icon.svg",
             "type": "image/svg+xml",
             "sizes": "512x512"
         }
     ],
     "id": "/",
     "start_url": "/",
-    "background_color": "#37abc8",
+    "background_color": "#d7eef4",
     "display": "standalone",
     "scope": "/",
-    "theme_color": "#37abc8",
+    "theme_color": "#d7eef4",
     "description": "Watch videos, listen to audio, and view your photos easily with Videand."
 }
