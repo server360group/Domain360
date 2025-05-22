@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>WTG Media Player</title>
+    <link rel="manifest" href="app.webmanifest">
+    <script type="module" src="lib/bronzeplayer.js"></script>
+    <link rel="shortcut icon" href="assets/icons/logo.svg" type="image/x-icon">
+    <script type="module" src="lib/ahtml.js"></script>
+    <link rel="stylesheet" href="assets/fonts/library.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <a href=""><img src="https://webtelegraph.pages.dev/assets/branding/logos/WTG-Media-Player-logo.svg" alt="WTG Media Player" height="30px"></a>
+    <ahtml-tabs activeid="video">
+        <ahtml-tab id="video">Video</ahtml-tab>
+        <ahtml-tab id="audio">Audio</ahtml-tab>
+        <ahtml-tab id="images">Images</ahtml-tab>
+
+        <ahtml-tab-panel id="videoPanel">
+            <h1>Video Player</h1>
+            <label for="videoInput" class="fileOpenLabel">Choose a Video</label>
+            <input type="file" accept="video/*" id="videoInput" hidden>
+            <br>
+            <bronze-controller>
+                <video slot="media" id="videoPlayer"></video>
+                <bronze-loading-indicator slot="centered-chrome"></bronze-loading-indicator>
+                <bronze-control-bar>
+                    <bronze-play-button></bronze-play-button>
+                    <bronze-seek-backward-button></bronze-seek-backward-button>
+                    <bronze-seek-forward-button></bronze-seek-forward-button>
+                    <bronze-mute-button></bronze-mute-button>
+                    <bronze-volume-range></bronze-volume-range>
+                    <bronze-time-display showduration></bronze-time-display>
+                    <bronze-time-range></bronze-time-range>
+                    <bronze-playback-rate-button></bronze-playback-rate-button>
+                    <bronze-pip-button></bronze-pip-button>
+                    <bronze-fullscreen-button></bronze-fullscreen-button>
+                </bronze-control-bar>
+            </bronze-controller>
+        </ahtml-tab-panel>
+
+        <ahtml-tab-panel id="entreesPanel">
+            <h1>Audio Player</h1>
+            <label for="audioInput" class="fileOpenLabel">Choose an Audio</label>
+            <input type="file" accept="audio/*" id="audioInput" hidden>
+            <br>
+            <bronze-controller audio>
+                <audio slot="media" id="audioPlayer"></audio>
+                <bronze-control-bar>
+                    <bronze-play-button></bronze-play-button>
+                    <bronze-seek-backward-button></bronze-seek-backward-button>
+                    <bronze-seek-forward-button></bronze-seek-forward-button>
+                    <bronze-mute-button></bronze-mute-button>
+                    <bronze-volume-range></bronze-volume-range>
+                    <bronze-time-display showduration></bronze-time-display>
+                    <bronze-time-range></bronze-time-range>
+                    <bronze-playback-rate-button></bronze-playback-rate-button>
+                </bronze-control-bar>
+            </bronze-controller>
+        </ahtml-tab-panel>
+
+        <ahtml-tab-panel id="imagesPanel">
+            <h1>Image Viewer</h1>
+            <label for="imageInput" class="fileOpenLabel">Choose an Image</label>
+            <input type="file" accept="image/*" id="imageInput" hidden>
+            <br>
+            <div id="imageViewer">
+                <img id="previewImage" src="" alt="Selected Image" style="max-width: 100%; margin-top: 10px; display: none;">
+            </div>
+        </ahtml-tab-panel>
+    </ahtml-tabs>
+
+    <script src="script.js"></script>
+</body>
+</html>

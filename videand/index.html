@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Videand Media Player</title>
+    <link rel="manifest" href="app.webmanifest">
+    <script type="module" src="lib/videand.js"></script>
+    <link rel="shortcut icon" href="assets/icons/logo.svg" type="image/x-icon">
+    <script type="module" src="lib/ahtml.js"></script>
+    <link rel="stylesheet" href="assets/fonts/library.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <a href=""><img src="./assets/icons/wordmark.svg" alt="WTG Media Player" height="50px"></a>
+    <ahtml-tabs activeid="video">
+        <ahtml-tab id="video">Video</ahtml-tab>
+        <ahtml-tab id="audio">Audio</ahtml-tab>
+        <ahtml-tab id="images">Photo</ahtml-tab>
+
+        <ahtml-tab-panel id="videoPanel">
+            <h1>Video Player</h1>
+            <label for="videoInput" class="fileOpenLabel">Choose a Video</label>
+            <input type="file" accept="video/*" id="videoInput" hidden>
+            <br>
+            <videand-controller>
+                <video slot="media" id="videoPlayer"></video>
+                <videand-loading-indicator slot="centered-chrome"></videand-loading-indicator>
+                <videand-control-bar>
+                    <videand-play-button></videand-play-button>
+                    <videand-seek-backward-button></videand-seek-backward-button>
+                    <videand-seek-forward-button></videand-seek-forward-button>
+                    <videand-mute-button></videand-mute-button>
+                    <videand-volume-range></videand-volume-range>
+                    <videand-time-display showduration></videand-time-display>
+                    <videand-time-range></videand-time-range>
+                    <videand-playback-rate-button></videand-playback-rate-button>
+                    <videand-pip-button></videand-pip-button>
+                    <videand-fullscreen-button></videand-fullscreen-button>
+                </videand-control-bar>
+            </videand-controller>
+        </ahtml-tab-panel>
+
+        <ahtml-tab-panel id="entreesPanel">
+            <h1>Audio Player</h1>
+            <label for="audioInput" class="fileOpenLabel">Choose an Audio</label>
+            <input type="file" accept="audio/*" id="audioInput" hidden>
+            <br>
+            <videand-controller audio>
+                <audio slot="media" id="audioPlayer"></audio>
+                <videand-control-bar>
+                    <videand-play-button></videand-play-button>
+                    <videand-seek-backward-button></videand-seek-backward-button>
+                    <videand-seek-forward-button></videand-seek-forward-button>
+                    <videand-mute-button></videand-mute-button>
+                    <videand-volume-range></videand-volume-range>
+                    <videand-time-display showduration></videand-time-display>
+                    <videand-time-range></videand-time-range>
+                    <videand-playback-rate-button></videand-playback-rate-button>
+                </videand-control-bar>
+            </videand-controller>
+        </ahtml-tab-panel>
+
+        <ahtml-tab-panel id="imagesPanel">
+            <h1>Image Viewer</h1>
+            <label for="imageInput" class="fileOpenLabel">Choose an Image</label>
+            <input type="file" accept="image/*" id="imageInput" hidden>
+            <br>
+            <div id="imageViewer">
+                <img id="previewImage" src="" alt="Selected Image" style="max-width: 100%; margin-top: 10px; display: none;">
+            </div>
+        </ahtml-tab-panel>
+    </ahtml-tabs>
+
+    <script src="script.js"></script>
+</body>
+</html>

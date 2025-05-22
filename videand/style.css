@@ -1,0 +1,56 @@
+* {
+    font-family: 'Kilroy';
+    --videand-font-family: 'Kilroy' !important;
+    font-feature-settings: "tnum";
+}
+
+body {
+    background-color: #ffffff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    margin: 0; 
+}
+
+h1 {
+    color: #3b3b3b;
+    margin-bottom: 20px;
+}
+
+input[type="file"] {
+    margin-bottom: 20px;
+}
+
+.fileOpenLabel {
+    color: #3b3b3b;
+    background-color: #f8f8f8;
+    cursor: pointer;
+    border: 2px solid #f8f8f8;
+    border-radius: 6px;
+    display: inline-block;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+}
+
+.fileOpenLabel:hover {
+    color: #3b3b3b;
+    background-color: #f2f2f2;
+    cursor: pointer;
+    border: 2px solid #f2f2f2;
+    border-radius: 6px;
+    display: inline-block;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+}
+
+.fileOpenLabel:active {
+    color: #000000;
+    background-color: #e8e8e8;
+    cursor: pointer;
+    border: 2px solid #005fb8;
+    border-radius: 6px;
+    display: inline-block;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+}
