@@ -3,7 +3,7 @@
     "name": "Videand Media Player",
     "icons": [
         {
-            "src": "assets/icons/icon-inverted.svg",
+            "src": "https://server360sites.pages.dev/videand/assets/icons/icon-inverted.svg",
             "type": "image/svg+xml",
             "sizes": "512x512"
         }
