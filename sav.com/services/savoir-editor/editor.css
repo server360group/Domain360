@@ -1,0 +1,311 @@
+@charset "UTF-8";
+/*
+ * Sav Editor v1.0
+ * https://savgroup.pages.dev/editor/
+ * Copyright (c) 2025 Sav Group. All Rights Reserved.
+ * MIT License
+ * Based on ncSimpleHtmlEditor.
+*/
+
+@import url(../assets/style.global.css);
+
+* {
+    font-family: 'Sav Madeby Text', Arial, Helvetica, sans-serif;
+}
+
+[contentEditable="true"] *:hover:not(.focused) {
+    outline: 1px dotted !important;
+    outline-color: revert !important;
+}
+
+[contentEditable="false"] *:hover:not(.focused) {
+    outline: revert !important;
+}
+
+.focused,
+.focused:hover {
+    outline: 2px dashed !important;
+    outline-offset: 2px !important;
+    outline-color: invert !important;
+    color: revert;
+}
+
+#savEdit-container {
+    font-family: 'Sav Madeby Text', Arial, Helvetica, sans-serif;
+    font-size: 16px;
+}
+
+#savEdit-toolbar {
+    text-align: center;
+    left: 25px;
+    top: 25px;
+    width: 94px; /* 2 cols, 42 x 2 + padding * 2 + border * 2 */
+    padding: 4px;
+    height: auto;
+    position: fixed;
+    z-index: 99999;
+    background: #ffffff;
+    /* border: 1px solid rgba(0,0,0,.10); */
+    box-shadow: 0 0 18px rgba(0, 6, 36, .1), 0 6px 6px rgba(0, 6, 36, .05);
+}
+
+.savEdit-toolbar-icon-dragger {
+    width: 100%;
+    cursor: move;
+}
+
+.savEdit-toolbar-icon {
+    width: 100%;
+}
+
+.savEdit-toolbar button:disabled,
+.savEdit-toolbar button[disabled] {
+    cursor: default;
+}
+
+.savEdit-toolbar button:disabled img,
+.savEdit-toolbar button[disabled] img {
+    filter: invert(91%) sepia(11%) saturate(13%) hue-rotate(318deg) brightness(83%) contrast(87%);
+}
+
+.savEdit-toolbar-btn {
+    background-color: transparent;
+    box-sizing: none;
+    /* background-color: #fff; */
+    color: #333;
+    width: 100%;
+    max-width: 42px;
+    padding: 9px;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.savEdit-toolbar-btn:active {
+    transform: scale(0.85);
+    background-color: transparent;
+}
+
+.savEdit-toolbar-btn:focus {
+    outline: none;
+}
+
+.savEdit-toolbar-btn:hover {
+    background-color: transparent;
+}
+
+.savEdit-toolbar-btn:active:disabled {
+    transform: none;
+}
+
+.sbutton {
+    background-color: #FAFAFA;
+    border: 1px solid rgba(27, 31, 35, 0.15);
+    border-radius: 6px;
+    box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0, rgba(255, 255, 255, 0.25) 0 1px 0 inset;
+    box-sizing: border-box;
+    color: #242424;
+    cursor: pointer;
+    display: inline-block;
+    padding: 6px 14px;
+    touch-action: manipulation;
+    vertical-align: middle;
+    white-space: nowrap;
+    word-wrap: break-word;
+}
+
+.sbutton:active {
+    transform: scale(0.85);
+}
+
+input.sbutton:active {
+    transform: none;
+}
+
+textarea.sbutton {
+    display: block;
+    white-space: pre;
+    word-wrap: revert;
+    overflow-wrap: normal;
+    overflow-x: scroll;
+}
+
+textarea.sbutton:active {
+    transform: none;
+}
+
+.savEdit-btns {
+    width: 100%;
+    text-align: right;
+}
+
+.savEdit-btns-left {
+    float: left;
+}
+
+.savEdit-btns-left button {
+    margin-right: 4px;
+}
+
+/* .savEdit-btns-right {
+    float: right;
+} */
+
+.savEdit-btns-right button {
+    margin-left: 4px;
+}
+
+.savEdit-dialog {
+    padding: 8px;
+    border: 1px solid rgba(0,0,0,0.3);
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.3);
+    width: 500px;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.savEdit-dialog label  {
+    padding: 2px;
+}
+
+.savEdit-dialog .dragger  {
+    cursor: move;
+}
+
+.savEdit-dialog .dragger.sbutton  {
+    background-color: transparent;
+    border: none;
+    padding-left: 12px;
+    font-size: 18px;
+}
+
+.savEdit-dialog .body  {
+    /* width: 100%; */
+    height: calc(100% - 96px);
+    margin: 10px 0px;
+}
+
+.savEdit-dialog .dragger img {
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+    margin-top: -3px;
+}
+
+.savEdit-dialog .savEdit-btns img {
+    width: 18px;
+    height: 18px;
+    margin-top: -3px;
+}
+
+#savEdit-dialog-code {
+    width: 720px;
+}
+
+#savEdit-dialog-code textarea {
+    width: 100%;
+    min-height: 200px;
+    height: 100%;
+}
+
+#savEdit-dialog-link .body {
+    padding: 8px;
+}
+
+#savEdit-dialog-link .body textarea, #savEdit-dialog-link .body input:not([type="checkbox"]) {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+#savEdit-dialog-image .body {
+    padding: 8px;
+}
+
+#savEdit-dialog-image .preview {
+    position:relative;
+    margin-bottom: 10px;
+    width: 100%;
+    min-height: 45px;
+    max-height: 160px;
+    text-align: center;
+    border: 1px solid rgba(0,0,0,0.1);
+    background-image: repeating-linear-gradient(45deg, #fff, #fff 10px, #eee 10px, #eee 20px);
+}
+
+#savEdit-dialog-image .preview .image {
+    padding: 0px;
+    width: auto;
+    height: 100%;
+    max-height: 160px;
+}
+
+#savEdit-dialog-image input.src, #savEdit-dialog-image input.alt {
+    width: 100%;
+}
+
+#savEdit-dialog-image .image-remove {
+    float: right;
+}
+
+#savEdit-dialog-image-upload {
+    position: absolute;
+    bottom: 2px; right: 2px;
+}
+
+#savEdit-dialog-image-file {
+    position: absolute;
+    bottom: 111%;
+    right: 111%;
+    width: 1px;
+    height: 1px;
+}
+
+#savEdit-dialog-image-width {
+    width: 82px;
+}
+
+#savEdit-dialog-image-height {
+    width: 82px;
+}
+
+#savEdit-dialog-image-float {
+    width: 82px;
+}
+
+#savEdit-dialog-image-padding {
+    width: 82px;
+}
+
+#savEdit-dialog-head {
+    width: 720px;
+}
+
+#savEdit-dialog-head .body {
+    padding: 8px;
+}
+
+#savEdit-dialog-head .title {
+    width: 100%;
+}
+
+#savEdit-dialog-head .description {
+    width: 100%;
+    min-height: 80px;
+    height: 100%;
+}
+
+#savEdit-dialog-head .all {
+    width: 100%;
+    min-height: 200px;
+    height: 100%;
+}
+
+#savEdit-dialog-head .edit-all {
+    width: 100%;
+}
+
+.separator {
+    margin-bottom: 10px;
+}

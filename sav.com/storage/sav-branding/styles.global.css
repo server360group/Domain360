@@ -1,0 +1,144 @@
+:root, .sds-tokens {
+    /* COLORS */
+    /* 100's are normal colors */
+    /* 50's are button-hover colors */
+    /* 0's are button-click colors */
+    --sds-color-white: #ffffff;
+    --sds-color-red-600: #fdeceb;
+    --sds-color-red-500: #fde3e1;
+    --sds-color-red-400: #fbd0cd;
+    --sds-color-red-300: #f69891;
+    --sds-color-red-200: #ff6d63;
+    --sds-color-red-100: #e62214;
+    --sds-color-red-50: #d0180b;
+    --sds-color-red-0: #b81206;
+    --sds-color-purple-700: #ffffff;
+    --sds-color-purple-600: #f7edfc;
+    --sds-color-purple-500: #f1e0f9;
+    --sds-color-purple-400: #e3c3f4;
+    --sds-color-purple-300: #cf8cf1;
+    --sds-color-purple-200: #c161f0;
+    --sds-color-purple-100: #9a27d5;
+    --sds-color-purple-50: #8e1dd1;
+    --sds-color-purple-0: #7416a5;
+    --sds-color-orange-600: #feefe6;
+    --sds-color-orange-500: #fee5d7;
+    --sds-color-orange-400: #fddbc8;
+    --sds-color-orange-300: #fcbd9c;
+    --sds-color-orange-200: #ff7d38;
+    --sds-color-orange-100: #fe620f;
+    --sds-color-orange-50: #f05300;
+    --sds-color-orange-0: #df4d00;
+    --sds-color-iris-600: #eeecfe;
+    --sds-color-iris-500: #e7e4fe;
+    --sds-color-iris-400: #d6d1fc;
+    --sds-color-iris-300: #a59bfa;
+    --sds-color-iris-200: #7b6df7;
+    --sds-color-iris-100: #5a48f5;
+    --sds-color-iris-50: #5443e3;
+    --sds-color-iris-0: #4d3dd0;
+    --sds-color-green-600: #e9f6ee;
+    --sds-color-green-500: #e1f4eb;
+    --sds-color-green-400: #c8e8d6;
+    --sds-color-green-300: #87cea5;
+    --sds-color-green-200: #51b77b;
+    --sds-color-green-100: #25a55a;
+    --sds-color-green-50: #229954;
+    --sds-color-green-0: #1d8649;
+    --sds-color-blue-600: #f4f7ff;
+    --sds-color-blue-500: #e7f0ff;
+    --sds-color-blue-400: #d6e6fe;
+    --sds-color-blue-300: #a8caff;
+    --sds-color-blue-250: #80b1ff;
+    --sds-color-blue-200: #5999ff;
+    --sds-color-blue-100: #116dff;
+    --sds-color-blue-50: #0f62e6;
+    --sds-color-blue-0: #084ebd;
+    --sds-color-black-750: #f6f7f9;
+    --sds-color-black-700: #eceff3;
+    --sds-color-black-600: #dfe5eb;
+    --sds-color-black-550: #cfd1dc;
+    --sds-color-black-500: #acafc4;
+    --sds-color-black-400: #868aa5;
+    --sds-color-black-300: #595d70;
+    --sds-color-black-200: #44485f;
+    --sds-color-black-100: #000624;
+
+    /* FONTS */
+    --sds-font-display: 'Sav Madeby Display';
+    --sds-font-text: 'Sav Madeby Text';
+    --sds-font-mono: 'Fehmarn';
+    --sds-font-emoji: 'Rubisco Color Emoji';
+}
+
+/* Sav Madeby Display */
+@font-face {
+    font-family: 'Sav Madeby Display';
+    src: url(./fonts/SavMadebyDisplay-Regular.ttf);
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Sav Madeby Display';
+    src: url(./fonts/SavMadebyDisplay-Bold.ttf);
+    font-weight: 700;
+    font-style: normal;
+}
+
+/* Sav Madeby Text */
+@font-face {
+    font-family: 'Sav Madeby Text';
+    src: url(./fonts/SavMadebyText-Regular.ttf);
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Sav Madeby Text';
+    src: url(./fonts/SavMadebyText-Bold.ttf);
+    font-weight: 700;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Sav Madeby Text';
+    src: url(./fonts/SavMadebyText-Italic.ttf);
+    font-weight: 400;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'Sav Madeby Text';
+    src: url(./fonts/SavMadebyText-BoldItalic.ttf);
+    font-weight: 700;
+    font-style: italic;
+}
+
+/* Fehmarn */
+@font-face {
+    font-family: 'Fehmarn';
+    src: url(./fonts/Fehmarn.ttf);
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Fehmarn';
+    src: url(./fonts/Fehmarn-Bold.ttf);
+    font-weight: 700;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Fehmarn';
+    src: url(./fonts/Fehmarn-Italic.ttf);
+    font-weight: 400;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'Fehmarn';
+    src: url(./fonts/Fehmarn-BoldItalic.ttf);
+    font-weight: 700;
+    font-style: italic;
+}
+
+/* Rubisco Color Emoji */
+@font-face {
+    font-family: 'Rubisco Color Emoji';
+    src: url(./fonts/RubiscoColorEmoji.ttf);
+}

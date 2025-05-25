@@ -1,0 +1,46 @@
+html, body {
+    font-family: var(--sds-font-text), var(--sds-font-emoji), sans-serif;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+header {
+    color: var(--sds-color-black-100);
+    background-color: var(--sds-color-white);
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    height: 60px;
+    box-sizing: border-box;
+    box-shadow: 0 0 18px rgba(0, 6, 36, .1), 0 6px 6px rgba(0, 6, 36, .05);
+}
+
+#logo {
+    display: flex;
+    align-items: center;
+    margin-right: auto;
+}
+
+#uploadBtn {
+    font-family: var(--sds-font-text), var(--sds-font-emoji), sans-serif;
+    font-size: 1em;
+    color: var(--sds-color-white);
+    padding: 10px 15px;
+    background-color: var(--sds-color-iris-100);
+    border: none;
+    border-radius: 100px;
+    cursor: pointer;
+}
+#uploadBtn:hover {
+    background-color: var(--sds-color-iris-50);
+}
+#uploadBtn:focus {
+    background-color: var(--sds-color-iris-0);
+}
+
+#editorFrame {
+    width: 100%;
+    height: calc(100% - 60px);
+    border: none;
+}
