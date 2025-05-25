@@ -3,9 +3,9 @@ const uploadBtn = document.getElementById('uploadBtn');
 const iframe = document.getElementById('editorFrame');
 
 const injectCode = `
-<div id="savedit-implement">
-    <link rel="stylesheet" href="https://savgroup.pages.dev/sav-editor/editor.css">
-    <script src="https://savgroup.pages.dev/sav-editor/editor.js"><\/script>
+<div id="savEdit-implement">
+    <link rel="stylesheet" href="https://server360sites.pages.dev/sav.com/services/savoir-editor/editor.css">
+    <script src="https://server360sites.pages.dev/sav.com/services/savoir-editor/editor.js"><\/script>
     <script>
         window.addEventListener('DOMContentLoaded', function () {
             var editor = new savoirEditor();
