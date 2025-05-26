@@ -3,106 +3,94 @@
 <head>
 <meta charset='UTF-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-<title>Server360 Sites</title>
-<link rel="shortcut icon" href="https://server360.pages.dev/assets/Server360-sites_favicon.png" type="image/x-icon">
-<link rel="stylesheet" href="https://aurorasoft.pages.dev/aml/library/global.css">
-<link rel="stylesheet" href="https://server360sites.pages.dev/public/design/styles.global.css">
-<style>
-    :root {
-        --font-family-monospace: var(--wds-mono)
-    }
-    * {
-        font-family: var(--wds-sans) !important;
-    }
-</style>
+<title>Page Title | Aurorasoft</title>
+<link rel="shortcut icon" href="https://aurorasoft.pages.dev/aurorasoft-icon.png" type="image/x-icon">
+<link rel="stylesheet" href="https://server360sites.pages.dev/public/services/markdown/wledig.css">
 </head>
 <body>
 <!-- Original AML:
-# Server360 Sites
-**Server360 Sites** is a website hosting service offered by Server360 and runs on the Domain360 service, which uses [GitHub](http://github.com/) and [Cloudflare Pages](https://pages.cloudflare.com/). It is free for anyone to use, with oversight by the Server360 team.
+## Server360 Sites
+**Server360 Sites** is our [web hosting service](https://en.wikipedia.org/wiki/Web_hosting_service) which runs on [Domain360](https://github.com/server360group/Domain360) a GitHub repo and service, which uses [GitHub](http://github.com/) and [Cloudflare Pages](https://pages.cloudflare.com/) integrations to run. Server360 Sites is free for anyone to use, with oversight by our teams.
 
-## About
-Server360 Sites was created in 2025 to fulfull our goal of adding webhosting to our group's list of abilities. We tried different ways of making this dream a reality back in 2020, including private hosting, which didn't fit our objectives. We took a break and eventually learned about Cloudflare Pages.
+## About {#about}
+Server360 Sites was created in 2025 to fulfill our goal of creating a web hosting service, which was one of Server360's original purposes. We tried different ways of making this dream a reality back in 2020 when we were first founded, including a private hosting system where people had to contact us first. This way didn't fit our objectives, so we took a break and eventually, we learned about Cloudflare Pages!
 
-Server360 Sites works by letting users create what we call 'minisites', or subdirectories within the server360sites.pages.dev domain. Thus, users do not create subdomains, they create new folders.
+The service works by having users create what we call 'minisites,' or subdirectories within the server360.pages.dev domain. Thus, users don't create their own custom domains, they just create new folders.
 
-All minisites hosted by Server360 will follow this style of URL: server360sites.pages.dev/your-minisite/file.html and server360sites.pages.dev/your-minisite/extra-folder/file.html or any other way you need your minisite to be structured!
+All minisites hosted by Server360 follow the same URL patterns, i.e., `server360.pages.dev/your-minisite/` or `server360.pages.dev/your-minisite/folder/` or any other way you want your minisite to be structured!
 
-## How to use
+## How to use {#how-to-use}
 Server360 Sites is meant to be a fairly simple and free way to host your minisites. However, there are some things you must do before your minisite can get published.
 
-### Creating a minisite
-To get your project's page hosted on Server360 Sites, you must do the following:
-1. Fork the official [Domain360](https://github.com/server360group/Domain360) GitHub repo.
-2. Create a new **folder** in your forked version and add all of the files you need for your minisite.
-    - If a folder already exists with the minisite name you want, then you will have to choose a different name. Your pull request won't be accepted if you delete another person's files.
-3. Create an **About.txt** file that describes what your minisite is about, an email address we can use to contact you, and how often you plan to update your minisite.
-    - The About.txt file should be in the root of your minisite's directory. You can have many subdirectories which don't require an About.txt file, but your main minisite directory does.
-4. Upload your minisite's files to the new folder you made in your fork.
-5. Submit a pull request for the official Domain360 repo.
+### Creating a minisite {#new}
+To get your minisite hosted on Server360 Sites, you must do the following:
+1. Fork the official [Domain360](https://github.com/server360group/Domain360) repo on GitHub.
+2. Create a new **folder** in your fork and add all of the files you need for your minisite.
+    - If a folder with the minisite path you want already exists, then you will have to choose a new path for your minisite. Your pull request will be denied if you delete or tamper another person's minisite or files.
+3. Create an `about.txt` file that has your name and an email address we can use to contact you directly, a description of your minisite, and how often you plan to update your minisite.
+    - **Important:** Your `about.txt` file should be in the root of your minisite's folder. Subfolders in your minisite do not require an `about.txt` file.
+    - **Note:** You are allowed to create multiple minisites if you want. For each new minisite, you will need to create a new `about.txt` file.
+4. Submit a pull request to merge your fork with the official Domain360 repo on GitHub.
 
-**Note:** It can take a few business days (typically one) to get your minisite published. We will email you when your minisite goes live.
+**Note:** It can take upto seven business days to get your minisite published or updated right now. We're still working on making the process faster!
 
-If any of the above information is missing, especially the About.txt file, we will not approve your pull request.
+**Important:** If any of the information in the `about.txt` is missing, we will not approve your pull request.
 
-### Updating a minisite
-If you want to update one of your minisites, then do the following:
-1. **Don't** create a new fork, use your existing one with the original minisite directory.
-2. Update the files in your **original** fork.
-3. Create and submit a new pull request to the official Domain360 repo.
-    - You must detail the changes you made in your pull request in order for your minisite to get updated.
-4. Wait for your minipage to get updated.
+### Updating a minisite {#updating}
+If you want to update your minisite, you must do the following:
+1. **DO NOT** create a new fork, use the one you made originally to create your minisite.
+2. Update, add, or remove your minisite's files (in the **original** fork you made).
+3. Create and submit a new pull request for the offial Domain360 repo on GitHub.
+    - **Important:** You must detail the changes you made to your minisite in your pull request in order for your minisite to get updated! If your pull request doesn't contain any information about your changes, it won't be accepted.
+4. Wait for your minisite to get updated.
 
-**Note:** If you change one of the directories of your minisite, then the link will be broken and an error page will be shown. So you should keep this in mind when changing directories and how that may affect your minisite's traffic.
+**Note:**  If you change one of the directories in your minisite, then the link will be broken and an error page will be shown instead of the proper page. Keep this in mind when renaming folders in your minisite!
 
-If your updating pull request does not contain any information about your changes, then your pull request will not be accepted.
-
-## Help
-If you need help with Server360 Sites or have questions, please email our team at server360group@gmail.com or by opening a [new issue](https://github.com/server360group/Domain360/issues/new) on our official GitHub repo.
+## Help {#help}
+If you're having issues forking the Domain360 repo or are having general troubles on GitHub, consider going to the [GitHub Support](https://support.github.com/) website. If you are experiencing any issues with the Domain360 service itself or notice an issue with Server360 Pages, please open a [new issue](https://github.com/server360group/Domain360/issues/new) on the Domain360 repo. For any other questions or concerns, please feel free to email our team at server360group@gmail.com and we will try to get back to you as soon as we can.
 -->
-<h1 id="server360-sites" tabindex="-1">Server360 Sites</h1>
-<p><strong>Server360 Sites</strong> is a website hosting service offered by Server360 and runs on the Domain360 service, which uses <a href="http://github.com/">GitHub</a> and <a href="https://pages.cloudflare.com/">Cloudflare Pages</a>. It is free for anyone to use, with oversight by the Server360 team.</p>
+<h2 id="server360-sites" tabindex="-1">Server360 Sites</h2>
+<p><strong>Server360 Sites</strong> is our <a href="https://en.wikipedia.org/wiki/Web_hosting_service">web hosting service</a> which runs on <a href="https://github.com/server360group/Domain360">Domain360</a> a GitHub repo and service, which uses <a href="http://github.com/">GitHub</a> and <a href="https://pages.cloudflare.com/">Cloudflare Pages</a> integrations to run. Server360 Sites is free for anyone to use, with oversight by our teams.</p>
 <h2 id="about" tabindex="-1">About</h2>
-<p>Server360 Sites was created in 2025 to fulfull our goal of adding webhosting to our group’s list of abilities. We tried different ways of making this dream a reality back in 2020, including private hosting, which didn’t fit our objectives. We took a break and eventually learned about Cloudflare Pages.</p>
-<p>Server360 Sites works by letting users create what we call ‘minisites’, or subdirectories within the server360sites.pages.dev domain. Thus, users do not create subdomains, they create new folders.</p>
-<p>All minisites hosted by Server360 will follow this style of URL: server360sites.pages.dev/your-minisite/file.html and server360sites.pages.dev/your-minisite/extra-folder/file.html or any other way you need your minisite to be structured!</p>
+<p>Server360 Sites was created in 2025 to fulfill our goal of creating a web hosting service, which was one of Server360’s original purposes. We tried different ways of making this dream a reality back in 2020 when we were first founded, including a private hosting system where people had to contact us first. This way didn’t fit our objectives, so we took a break and eventually, we learned about Cloudflare Pages!</p>
+<p>The service works by having users create what we call ‘minisites,’ or subdirectories within the server360.pages.dev domain. Thus, users don’t create their own custom domains, they just create new folders.</p>
+<p>All minisites hosted by Server360 follow the same URL patterns, i.e., <code>server360.pages.dev/your-minisite/</code> or <code>server360.pages.dev/your-minisite/folder/</code> or any other way you want your minisite to be structured!</p>
 <h2 id="how-to-use" tabindex="-1">How to use</h2>
 <p>Server360 Sites is meant to be a fairly simple and free way to host your minisites. However, there are some things you must do before your minisite can get published.</p>
-<h3 id="creating-a-minisite" tabindex="-1">Creating a minisite</h3>
-<p>To get your project’s page hosted on Server360 Sites, you must do the following:</p>
+<h3 id="new" tabindex="-1">Creating a minisite</h3>
+<p>To get your minisite hosted on Server360 Sites, you must do the following:</p>
 <ol>
-<li>Fork the official <a href="https://github.com/server360group/Domain360">Domain360</a> GitHub repo.</li>
-<li>Create a new <strong>folder</strong> in your forked version and add all of the files you need for your minisite.
+<li>Fork the official <a href="https://github.com/server360group/Domain360">Domain360</a> repo on GitHub.</li>
+<li>Create a new <strong>folder</strong> in your fork and add all of the files you need for your minisite.
 <ul>
-<li>If a folder already exists with the minisite name you want, then you will have to choose a different name. Your pull request won’t be accepted if you delete another person’s files.</li>
+<li>If a folder with the minisite path you want already exists, then you will have to choose a new path for your minisite. Your pull request will be denied if you delete or tamper another person’s minisite or files.</li>
 </ul>
 </li>
-<li>Create an <strong>About.txt</strong> file that describes what your minisite is about, an email address we can use to contact you, and how often you plan to update your minisite.
+<li>Create an <code>about.txt</code> file that has your name and an email address we can use to contact you directly, a description of your minisite, and how often you plan to update your minisite.
 <ul>
-<li>The About.txt file should be in the root of your minisite’s directory. You can have many subdirectories which don’t require an About.txt file, but your main minisite directory does.</li>
+<li><strong>Important:</strong> Your <code>about.txt</code> file should be in the root of your minisite’s folder. Subfolders in your minisite do not require an <code>about.txt</code> file.</li>
+<li><strong>Note:</strong> You are allowed to create multiple minisites if you want. For each new minisite, you will need to create a new <code>about.txt</code> file.</li>
 </ul>
 </li>
-<li>Upload your minisite’s files to the new folder you made in your fork.</li>
-<li>Submit a pull request for the official Domain360 repo.</li>
+<li>Submit a pull request to merge your fork with the official Domain360 repo on GitHub.</li>
 </ol>
-<p><strong>Note:</strong> It can take a few business days (typically one) to get your minisite published. We will email you when your minisite goes live.</p>
-<p>If any of the above information is missing, especially the About.txt file, we will not approve your pull request.</p>
-<h3 id="updating-a-minisite" tabindex="-1">Updating a minisite</h3>
-<p>If you want to update one of your minisites, then do the following:</p>
+<p><strong>Note:</strong> It can take upto seven business days to get your minisite published or updated right now. We’re still working on making the process faster!</p>
+<p><strong>Important:</strong> If any of the information in the <code>about.txt</code> is missing, we will not approve your pull request.</p>
+<h3 id="updating" tabindex="-1">Updating a minisite</h3>
+<p>If you want to update your minisite, you must do the following:</p>
 <ol>
-<li><strong>Don’t</strong> create a new fork, use your existing one with the original minisite directory.</li>
-<li>Update the files in your <strong>original</strong> fork.</li>
-<li>Create and submit a new pull request to the official Domain360 repo.
+<li><strong>DO NOT</strong> create a new fork, use the one you made originally to create your minisite.</li>
+<li>Update, add, or remove your minisite’s files (in the <strong>original</strong> fork you made).</li>
+<li>Create and submit a new pull request for the offial Domain360 repo on GitHub.
 <ul>
-<li>You must detail the changes you made in your pull request in order for your minisite to get updated.</li>
+<li><strong>Important:</strong> You must detail the changes you made to your minisite in your pull request in order for your minisite to get updated! If your pull request doesn’t contain any information about your changes, it won’t be accepted.</li>
 </ul>
 </li>
-<li>Wait for your minipage to get updated.</li>
+<li>Wait for your minisite to get updated.</li>
 </ol>
-<p><strong>Note:</strong> If you change one of the directories of your minisite, then the link will be broken and an error page will be shown. So you should keep this in mind when changing directories and how that may affect your minisite’s traffic.</p>
-<p>If your updating pull request does not contain any information about your changes, then your pull request will not be accepted.</p>
+<p><strong>Note:</strong>  If you change one of the directories in your minisite, then the link will be broken and an error page will be shown instead of the proper page. Keep this in mind when renaming folders in your minisite!</p>
 <h2 id="help" tabindex="-1">Help</h2>
-<p>If you need help with Server360 Sites or have questions, please email our team at <a href="mailto:server360group@gmail.com">server360group@gmail.com</a> or by opening a <a href="https://github.com/server360group/Domain360/issues/new">new issue</a> on our official GitHub repo.</p>
+<p>If you’re having issues forking the Domain360 repo or are having general troubles on GitHub, consider going to the <a href="https://support.github.com/">GitHub Support</a> website. If you are experiencing any issues with the Domain360 service itself or notice an issue with Server360 Pages, please open a <a href="https://github.com/server360group/Domain360/issues/new">new issue</a> on the Domain360 repo. For any other questions or concerns, please feel free to email our team at <a href="mailto:server360group@gmail.com">server360group@gmail.com</a> and we will try to get back to you as soon as we can.</p>
 
 </body>
 </html>
