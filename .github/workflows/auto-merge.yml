@@ -1,15 +1,11 @@
-name: Auto Merge PRs from main to main
+name: Auto Merge All PRs
 
 on:
   pull_request:
-    types:
-      - opened
-      - reopened
-      - synchronize
+    types: [opened, reopened, synchronize]
 
 jobs:
   auto-merge:
-    if: github.event.pull_request.base.ref == 'main' && github.event.pull_request.head.ref == 'main'
     runs-on: ubuntu-latest
 
     permissions:
@@ -17,14 +13,12 @@ jobs:
       pull-requests: write
 
     steps:
-      - name: Checkout (optional)
-        uses: actions/checkout@v4
+      - name: Authenticate with PAT
+        run: echo "${{ secrets.GH_PAT }}" | gh auth login --with-token
 
       - name: Auto-merge pull request
         env:
-          GH_TOKEN: ${{ secrets.GH_PAT }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
           echo "Attempting to auto-merge PR #$PR_NUMBER"
-          gh auth login --with-token <<< "$GH_TOKEN"
-          gh pr merge $PR_NUMBER --merge --repo "${{ github.repository }}"
+          gh pr merge $PR_NUMBER --merge --admin --repo "${{ github.repository }}"
