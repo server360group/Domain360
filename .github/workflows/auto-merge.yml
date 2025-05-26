@@ -1,4 +1,4 @@
-name: Immediate Auto Merge on PR to Main
+name: Auto Merge PRs to Main
 
 on:
   pull_request:
@@ -12,24 +12,25 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Debug GH_TOKEN availability
+      - name: Confirm GH_PAT is available
         env:
-          GH_TOKEN: ${{ secrets.PAT }}
+          GH_TOKEN: ${{ secrets.GH_PAT }}
         run: |
           if [ -z "$GH_TOKEN" ]; then
-            echo "ERROR: GH_TOKEN is empty!"
+            echo "❌ GH_TOKEN (GH_PAT) is not set. Exiting."
             exit 1
           else
-            echo "GH_TOKEN is set."
+            echo "✅ GH_TOKEN is available."
           fi
 
       - name: Merge the pull request
         env:
-          GH_TOKEN: ${{ secrets.PAT }}
+          GH_TOKEN: ${{ secrets.GH_PAT }}
         run: |
           gh auth status
           gh pr merge ${{ github.event.pull_request.html_url }} --merge --delete-branch --admin
