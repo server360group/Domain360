@@ -1,38 +1,31 @@
-name: Auto Merge PRs from main
+name: Auto Merge PRs from main (fork-safe)
 
 on:
-  pull_request:
+  pull_request_target:
     types: [opened, synchronize, reopened]
 
 jobs:
   auto-merge:
+    if: github.event.pull_request.head.ref == 'main'
     runs-on: ubuntu-latest
 
     steps:
-    - name: Auto merge PR if source branch is main
+    - name: Auto merge PR if source is main (from pull_request_target)
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        TOKEN: ${{ secrets.GH_PAT }}
         PR_NUMBER: ${{ github.event.pull_request.number }}
-        PR_HEAD_REF: ${{ github.event.pull_request.head.ref }}
         REPO: ${{ github.repository }}
       run: |
-        if [ "$PR_HEAD_REF" != "main" ]; then
-          echo "PR source branch is not 'main'. Exiting."
-          exit 0
-        fi
+        echo "Merging PR #$PR_NUMBER from branch 'main'"
 
-        echo "PR source branch is 'main'. Attempting to merge PR #$PR_NUMBER."
-
-        # Call GitHub API to merge the PR
         response=$(curl -s -X PUT \
-          -H "Authorization: Bearer $GITHUB_TOKEN" \
+          -H "Authorization: Bearer $TOKEN" \
           -H "Accept: application/vnd.github+json" \
           "https://api.github.com/repos/$REPO/pulls/$PR_NUMBER/merge" \
           -d '{"commit_title":"Auto merge PR #'"$PR_NUMBER"'","merge_method":"merge"}')
 
         if echo "$response" | grep -q '"merged":true'; then
           echo "PR #$PR_NUMBER merged successfully."
-          exit 0
         else
           echo "Failed to merge PR #$PR_NUMBER. Response:"
           echo "$response"
