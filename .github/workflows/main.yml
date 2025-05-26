@@ -1,4 +1,4 @@
-name: Immediate Auto Merge to Main
+name: Auto Merge PRs to Main
 
 on:
   pull_request:
@@ -8,25 +8,23 @@ on:
 
 jobs:
   auto-merge:
-    if: github.event.pull_request.base.ref == 'main'
     runs-on: ubuntu-latest
     permissions:
       contents: write
       pull-requests: write
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install GitHub CLI
+      - name: Debug GH_TOKEN
+        env:
+          GH_TOKEN: ${{ secrets.PAT }}
         run: |
-          curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
-          sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg
-          echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
-          sudo apt update
-          sudo apt install gh -y
+          echo "Token is set? ${GH_TOKEN:+yes}"   # Just prints 'yes' if token exists
+          gh auth status || echo "Not authenticated"
+
       - name: Merge the PR
         env:
           GH_TOKEN: ${{ secrets.PAT }}
         run: |
-          gh auth status
           gh pr merge ${{ github.event.pull_request.html_url }} --merge --delete-branch --admin
