@@ -1,4 +1,4 @@
-name: Immediate Auto Merge to Main
+name: Immediate Auto Merge on PR to Main
 
 on:
   pull_request:
@@ -8,24 +8,26 @@ on:
 
 jobs:
   auto-merge:
-    if: github.event.pull_request.base.ref == 'main'
     runs-on: ubuntu-latest
     permissions:
       contents: write
       pull-requests: write
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install GitHub CLI
+      - name: Debug GH_TOKEN availability
+        env:
+          GH_TOKEN: ${{ secrets.PAT }}
         run: |
-          curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
-          sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg
-          echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
-          sudo apt update
-          sudo apt install gh -y
+          if [ -z "$GH_TOKEN" ]; then
+            echo "ERROR: GH_TOKEN is empty!"
+            exit 1
+          else
+            echo "GH_TOKEN is set."
+          fi
 
-      - name: Merge the PR
+      - name: Merge the pull request
         env:
           GH_TOKEN: ${{ secrets.PAT }}
         run: |
