@@ -1,0 +1,71 @@
+:root {
+    /* COLORS */
+    --wds-red: #e6004a;
+    --wds-orange: #e64f00;
+    --wds-yellow: #ffaa00;
+    --wds-green: #008f5e;
+    --wds-blue: #1f69ff;
+    --wds-purple: #704bf7;
+    --wds-black: #141417;
+    --wds-dark-gray: #484851;
+    --wds-medium-gray: #8b8b97;
+    --wds-light-gray: #ececf2;
+    --wds-white: #ffffff;
+
+    /* FONTS */
+    --wds-sans: 'Wledig Sans';
+    --wds-mono: 'Wledig Mono';
+}
+
+/* FONTS */
+/* Wledig Sans */
+@font-face {
+    font-family: 'Wledig Sans';
+    src: url(./fonts/WledigSans-Regular.ttf);
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Wledig Sans';
+    src: url(./fonts/WledigSans-Bold.ttf);
+    font-weight: 700;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Wledig Sans';
+    src: url(./fonts/WledigSans-Italic.ttf);
+    font-weight: 400;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'Wledig Sans';
+    src: url(./fonts/WledigSans-BoldItalic.ttf);
+    font-weight: 700;
+    font-style: italic;
+}
+
+/* Wledig Mono */
+@font-face {
+    font-family: 'Wledig Mono';
+    src: url(./fonts/WledigMono-Regular.ttf);
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Wledig Mono';
+    src: url(./fonts/WledigMono-Bold.ttf);
+    font-weight: 700;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Wledig Mono';
+    src: url(./fonts/WledigMono-Italic.ttf);
+    font-weight: 400;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'Wledig Mono';
+    src: url(./fonts/WledigMono-BoldItalic.ttf);
+    font-weight: 700;
+    font-style: italic;
+}
