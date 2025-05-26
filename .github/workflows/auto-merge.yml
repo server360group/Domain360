@@ -1,4 +1,4 @@
-name: Auto Merge PRs from main
+name: Auto Merge PRs into main
 
 on:
   pull_request:
@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Merge the PR
+      - name: Auto-merge PR into main
         uses: peter-evans/pull-request-merge@v3
         with:
           token: ${{ secrets.PERSONAL_TOKEN }}
