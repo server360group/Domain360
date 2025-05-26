@@ -1,29 +1,40 @@
-name: Auto Merge Any PR
+name: Auto Merge PRs from main
 
 on:
   pull_request:
-    types: [opened, reopened, synchronize]
+    types: [opened, synchronize, reopened]
 
 jobs:
   auto-merge:
     runs-on: ubuntu-latest
 
-    permissions:
-      contents: write
-      pull-requests: write
-
     steps:
-      - name: Authenticate with PAT
-        env:
-          GH_PAT: ${{ secrets.GH_PAT }}
-        run: |
-          echo "$GH_PAT" | gh auth login --with-token
+    - name: Auto merge PR if source branch is main
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        PR_NUMBER: ${{ github.event.pull_request.number }}
+        PR_HEAD_REF: ${{ github.event.pull_request.head.ref }}
+        REPO: ${{ github.repository }}
+      run: |
+        if [ "$PR_HEAD_REF" != "main" ]; then
+          echo "PR source branch is not 'main'. Exiting."
+          exit 0
+        fi
 
-      - name: Auto-merge PR
-        env:
-          PR_NUMBER: ${{ github.event.pull_request.number }}
-          REPO: ${{ github.repository }}
-        run: |
-          echo "Auto-merging PR #$PR_NUMBER in $REPO"
-          gh pr merge $PR_NUMBER --merge --admin --repo $REPO || \
-          { echo "Merge failed, maybe conflicts or checks not passed"; exit 1; }
+        echo "PR source branch is 'main'. Attempting to merge PR #$PR_NUMBER."
+
+        # Call GitHub API to merge the PR
+        response=$(curl -s -X PUT \
+          -H "Authorization: Bearer $GITHUB_TOKEN" \
+          -H "Accept: application/vnd.github+json" \
+          "https://api.github.com/repos/$REPO/pulls/$PR_NUMBER/merge" \
+          -d '{"commit_title":"Auto merge PR #'"$PR_NUMBER"'","merge_method":"merge"}')
+
+        if echo "$response" | grep -q '"merged":true'; then
+          echo "PR #$PR_NUMBER merged successfully."
+          exit 0
+        else
+          echo "Failed to merge PR #$PR_NUMBER. Response:"
+          echo "$response"
+          exit 1
+        fi
