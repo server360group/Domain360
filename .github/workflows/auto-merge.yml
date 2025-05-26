@@ -1,36 +1,25 @@
-name: Auto Merge PRs to Main
+name: Auto Merge PRs from main to main
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened]
+    types: [opened, synchronize, reopened, ready_for_review]
     branches:
       - main
 
 jobs:
   auto-merge:
+    if: github.event.pull_request.base.ref == 'main' && github.event.pull_request.head.ref == 'main'
     runs-on: ubuntu-latest
     permissions:
-      contents: write
       pull-requests: write
+      contents: write
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Confirm GH_PAT is available
-        env:
-          GH_TOKEN: ${{ secrets.GH_PAT }}
-        run: |
-          if [ -z "$GH_TOKEN" ]; then
-            echo "❌ GH_TOKEN (GH_PAT) is not set. Exiting."
-            exit 1
-          else
-            echo "✅ GH_TOKEN is available."
-          fi
-
       - name: Merge the pull request
-        env:
-          GH_TOKEN: ${{ secrets.GH_PAT }}
-        run: |
-          gh auth status
-          gh pr merge ${{ github.event.pull_request.html_url }} --merge --delete-branch --admin
+        uses: peter-evans/enable-pull-request-automerge@v3
+        with:
+          pull-request-number: ${{ github.event.pull_request.number }}
+          merge-method: merge
