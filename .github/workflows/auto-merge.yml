@@ -13,8 +13,8 @@ jobs:
 
     steps:
       - name: Merge the PR
-          uses: peter-evans/pull-request-merge@v3
-          with:
-            token: ${{ secrets.PERSONAL_TOKEN }}
-            pull-request: ${{ github.event.pull_request.number }}
-            merge-method: merge
+        uses: peter-evans/pull-request-merge@v3
+        with:
+          token: ${{ secrets.PERSONAL_TOKEN }}
+          pull-request: ${{ github.event.pull_request.number }}
+          merge-method: merge
