@@ -1,11 +1,14 @@
-name: Immediate Auto Merge PRs
+name: Immediate Auto Merge to Main
 
 on:
   pull_request:
     types: [opened, synchronize, reopened]
+    branches:
+      - main
 
 jobs:
   auto-merge:
+    if: github.event.pull_request.base.ref == 'main'
     runs-on: ubuntu-latest
     permissions:
       contents: write
