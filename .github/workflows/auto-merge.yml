@@ -22,8 +22,9 @@ jobs:
 
       - name: Auto-merge pull request
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_PAT }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
           echo "Attempting to auto-merge PR #$PR_NUMBER"
-          gh pr merge $PR_NUMBER --merge --admin --repo "${{ github.repository }}"
+          gh auth login --with-token <<< "$GH_TOKEN"
+          gh pr merge $PR_NUMBER --merge --repo "${{ github.repository }}"
