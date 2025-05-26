@@ -1,20 +1,29 @@
-name: Auto Merge PRs into main
+name: Auto Merge PRs from main to main
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened, ready_for_review]
-    branches:
-      - main
+    types:
+      - opened
+      - reopened
+      - synchronize
 
 jobs:
   auto-merge:
-    if: github.event.pull_request.base.ref == 'main'
+    if: github.event.pull_request.base.ref == 'main' && github.event.pull_request.head.ref == 'main'
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: write
+      pull-requests: write
+
     steps:
-      - name: Auto-merge PR into main
-        uses: uses: peter-evans/enable-pull-request-automerge@v3.0.0
-        with:
-          token: ${{ secrets.PERSONAL_TOKEN }}
-          pull-request-number: ${{ github.event.pull_request.number }}
-          merge-method: merge
+      - name: Checkout (optional)
+        uses: actions/checkout@v4
+
+      - name: Auto-merge pull request
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          echo "Attempting to auto-merge PR #$PR_NUMBER"
+          gh pr merge $PR_NUMBER --merge --admin --repo "${{ github.repository }}"
