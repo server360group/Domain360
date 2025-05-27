@@ -1,33 +1,34 @@
-name: Auto Merge PRs from main (fork-safe)
+name: Immediate Auto Merge on PR to Main
 
 on:
-  pull_request_target:
+  pull_request:
     types: [opened, synchronize, reopened]
+    branches:
+      - main
 
 jobs:
   auto-merge:
-    if: github.event.pull_request.head.ref == 'main'
     runs-on: ubuntu-latest
-
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
-    - name: Auto merge PR if source is main (from pull_request_target)
-      env:
-        TOKEN: ${{ secrets.GH_PAT }}
-        PR_NUMBER: ${{ github.event.pull_request.number }}
-        REPO: ${{ github.repository }}
-      run: |
-        echo "Merging PR #$PR_NUMBER from branch 'main'"
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-        response=$(curl -s -X PUT \
-          -H "Authorization: Bearer $TOKEN" \
-          -H "Accept: application/vnd.github+json" \
-          "https://api.github.com/repos/$REPO/pulls/$PR_NUMBER/merge" \
-          -d '{"commit_title":"Auto merge PR #'"$PR_NUMBER"'","merge_method":"merge"}')
-
-        if echo "$response" | grep -q '"merged":true'; then
-          echo "PR #$PR_NUMBER merged successfully."
-        else
-          echo "Failed to merge PR #$PR_NUMBER. Response:"
-          echo "$response"
-          exit 1
-        fi
+      - name: Debug GH_TOKEN availability
+        env:
+          GH_TOKEN: ${{ secrets.PAT }}
+        run: |
+          if [ -z "$GH_TOKEN" ]; then
+            echo "ERROR: GH_TOKEN is empty!"
+            exit 1
+          else
+            echo "GH_TOKEN is set."
+          fi
+      - name: Merge the pull request
+        env:
+          GH_TOKEN: ${{ secrets.PAT }}
+        run: |
+          gh auth status
+          gh pr merge ${{ github.event.pull_request.html_url }} --merge --delete-branch --admin
