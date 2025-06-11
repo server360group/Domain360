@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>PDF Viewer with Local File Support</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    header {
+      background: #333;
+      color: white;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    #fileInput {
+      background: white;
+      color: #333;
+      border: none;
+      padding: 6px 12px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+
+    #viewer-container {
+      flex: 1;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <span>PDF.js Local File Viewer</span>
+    <input type="file" id="fileInput" accept="application/pdf" />
+  </header>
+
+  <div id="viewer-container">
+    <iframe id="pdfViewer" src=""></iframe>
+  </div>
+
+  <script>
+    const fileInput = document.getElementById('fileInput');
+    const viewer = document.getElementById('pdfViewer');
+
+    fileInput.addEventListener('change', function(event) {
+      const file = event.target.files[0];
+      if (file && file.type === 'application/pdf') {
+        const fileURL = URL.createObjectURL(file);
+        const viewerUrl = `https://pdfviewerapp.pages.dev/web/viewer.html?file=${encodeURIComponent(fileURL)}`;
+        viewer.src = viewerUrl;
+      } else {
+        alert("Please select a valid PDF file.");
+      }
+    });
+  </script>
+</body>
+</html>
