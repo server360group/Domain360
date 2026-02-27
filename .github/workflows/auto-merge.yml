@@ -9,26 +9,29 @@ on:
 jobs:
   auto-merge:
     runs-on: ubuntu-latest
+
     permissions:
       contents: write
       pull-requests: write
+      issues: write
+      checks: read
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Debug GH_TOKEN availability
-        env:
-          GH_TOKEN: ${{ secrets.PAT }}
+      # Authenticate GitHub CLI
+      - name: Authenticate gh
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
+
+      # Debug token
+      - name: Debug GH auth
+        run: gh auth status
+
+      # Auto-merge PR
+      - name: Merge Pull Request
         run: |
-          if [ -z "$GH_TOKEN" ]; then
-            echo "ERROR: GH_TOKEN is empty!"
-            exit 1
-          else
-            echo "GH_TOKEN is set."
-          fi
-      - name: Merge the pull request
-        env:
-          GH_TOKEN: ${{ secrets.PAT }}
-        run: |
-          gh auth status
-          gh pr merge ${{ github.event.pull_request.html_url }} --merge --delete-branch --admin
+          gh pr merge ${{ github.event.pull_request.number }} \
+            --merge \
+            --auto \
+            --delete-branch
