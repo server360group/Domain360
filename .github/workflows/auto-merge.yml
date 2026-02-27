@@ -29,7 +29,7 @@ jobs:
         run: gh auth status
 
       # Auto-merge PR
-      - name: Merge Pull Request
+      - name: Auto-merge PR
         run: |
           gh pr merge ${{ github.event.pull_request.number }} \
             --merge \
